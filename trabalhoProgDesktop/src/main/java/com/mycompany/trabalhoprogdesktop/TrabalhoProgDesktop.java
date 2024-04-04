@@ -11,6 +11,6 @@ package com.mycompany.trabalhoprogdesktop;
 public class TrabalhoProgDesktop {
 
     public static void main(String[] args) {
-        new TelaLogin().setVisible(true);
+        new Software().setVisible(true);
     }
 }
