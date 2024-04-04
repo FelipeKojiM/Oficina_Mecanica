@@ -5,6 +5,7 @@
 package com.mycompany.trabalhoprogdesktop;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -61,6 +62,32 @@ public class Software extends javax.swing.JFrame {
        tbRelatorioFinal.getColumnModel().getColumn(5).setPreferredWidth(0);
     }
     
+    public boolean validarCampos(JTextField textField ,String nomeTextField){
+        String campo = textField.getText().trim();
+        
+        if( campo.isEmpty()){
+            JOptionPane.showMessageDialog(this, ""+nomeTextField +" está vazio! ");
+            textField.requestFocus();
+            return false;
+        }return true;
+    }
+    
+    public boolean validarCampos(JTextArea textArea ,String nomeTextArea){
+        String campo = textArea.getText().trim();
+        
+        if( campo.isEmpty()){
+            JOptionPane.showMessageDialog(this, ""+nomeTextArea +" está vazio! ");
+            textArea.requestFocus();
+            return false;
+        }return true;
+    }
+    
+    public boolean validarString(JTextField textField, String nomeTexString){
+        String campo = textField.getText().trim();
+        
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -104,11 +131,11 @@ public class Software extends javax.swing.JFrame {
         jQuilometragem = new javax.swing.JLabel();
         buttonSalvarDados = new javax.swing.JButton();
         spDiagnostico = new javax.swing.JScrollPane();
-        taPreDiagnostico = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         spServicoeCustos = new javax.swing.JScrollPane();
         taPreServicosCustos = new javax.swing.JTextArea();
+        taPreDiagnostico = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         tfPeca = new javax.swing.JTextField();
@@ -284,10 +311,6 @@ public class Software extends javax.swing.JFrame {
             }
         });
 
-        taPreDiagnostico.setColumns(20);
-        taPreDiagnostico.setRows(5);
-        spDiagnostico.setViewportView(taPreDiagnostico);
-
         jLabel19.setText("Pré Diagnóstico");
 
         jLabel20.setText("Registro de Pré-Servicos, Custos e afins: ");
@@ -295,6 +318,9 @@ public class Software extends javax.swing.JFrame {
         taPreServicosCustos.setColumns(20);
         taPreServicosCustos.setRows(5);
         spServicoeCustos.setViewportView(taPreServicosCustos);
+
+        taPreDiagnostico.setColumns(20);
+        taPreDiagnostico.setRows(5);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -346,6 +372,11 @@ public class Software extends javax.swing.JFrame {
                             .addComponent(spServicoeCustos, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                             .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(taPreDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,6 +431,11 @@ public class Software extends javax.swing.JFrame {
                         .addComponent(spDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)))
                 .addGap(18, 18, 18))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(taPreDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("tab2", jPanel2);
@@ -613,7 +649,28 @@ public class Software extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void buttonSalvarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarDadosActionPerformed
-
+        
+        if(!validarCampos( tfNomeCliente, "Nome do Cliente" )){
+            return;}
+        if(!validarCampos( tfLogradouroCliente, "Logradouro do Cliente" )){
+            return;}
+        if(!validarCampos( tfNumeroCliente, "Número de endereço Cliente" )){
+            return;}        
+        if(!validarCampos(tfTelefoneCliente, "Telefone do Cliente")){
+            return;}
+        if(!validarCampos( tfNomeVeiculo, "Nome do Veiculo" )){
+            return;}
+        if(!validarCampos( tfPlacaVeiculo, "Placa do Veiculo" )){
+            return;}
+        if(!validarCampos( tfAnoVeiculo, "Ano do Veiculo" )){
+            return;}
+        if(!validarCampos( tfQuilometragemVeiculo, "Quilometragem do Veiculo" )){
+            return;}        
+        if(!validarCampos(taPreDiagnostico, "Pré Diagnóstico")){
+            return;}
+        if(!validarCampos( taPreServicosCustos, "Pré Orçamento" )){
+            return;}
+        
         JOptionPane.showMessageDialog(jPanel2, "Dados salvos com Sucesso!");
         jTabbedPane1.setSelectedIndex(2);
         cliente.setNomeCliente(tfNomeCliente.getText());
@@ -662,8 +719,10 @@ public class Software extends javax.swing.JFrame {
         String nomeUsuario = tfUsuario.getText();
         String senhaUsuario = tfSenha.getText();
         
-        if( nomeUsuario.isEmpty() && senhaUsuario.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Usuário ou Senha inválidos");  
+        if( nomeUsuario.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Usuário inválido!");  
+        }if( senhaUsuario.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Senha inválida!");  
         }else{
             JOptionPane.showMessageDialog(jPanel2, "Bem Vindo(a)!");
             jTabbedPane1.setSelectedIndex(1);
@@ -672,12 +731,24 @@ public class Software extends javax.swing.JFrame {
 
     private void btSalvarOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarOrcamentoActionPerformed
       
+        if(!validarCampos( tfPeca, "Peça" )){
+            return;}
+        if(!validarCampos( tfValorPeca, "Valor das Peças" )){
+            return;}
+        if(!validarCampos( tfQuantidadePecas, "Quantidade de Peças" )){
+            return;}        
+        if(!validarCampos(tfValorMaodeObra, "Mão de Obra")){
+            return;}
+        if(!validarCampos( tfServico, "Valor de Serviço" )){
+            return;}
+        
         servicos.setItem(tfPeca.getText());
         servicos.setServico(tfServico.getText());
         servicos.setValorPecaServico(tfValorPeca.getText());
         servicos.setQuantidadePecas(tfQuantidadePecas.getText());
         servicos.setValorMaodeObra(tfValorMaodeObra.getText());
         
+       
         //Para informar ao cliente o valor de todas as pecas * quantidade, utilizei valorTotalPecas
         //Para informar ao cliente o valor das pecas * quantidade utilizei valorTotalPeca
         //Por isso duas variaveis (quase) iguais.
