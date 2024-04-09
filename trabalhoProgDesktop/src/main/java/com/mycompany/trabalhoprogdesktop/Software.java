@@ -79,14 +79,31 @@ public class Software extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ""+nomeTextArea +" está vazio! ");
             textArea.requestFocus();
             return false;
-        }return true;
+        }
+        return true;
     }
     
-    public boolean validarString(JTextField textField, String nomeTexString){
+    public boolean validarNumeros(JTextField textField, String nomeTextString){
         String campo = textField.getText().trim();
         
-    }
-
+        if (campo.isEmpty()) {
+            return false;
+        }
+        
+        // Percorre cada caractere da string
+        for (int i = 0; i < campo.length(); i++) {
+            char c = campo.charAt(i);
+            // Verifica se o caractere não é um dígito numérico
+            if (c < '0' || c > '9') {
+                
+                JOptionPane.showMessageDialog(this, ""+nomeTextString +" - somente Números! ");
+                textField.requestFocus();
+                return false;
+            }
+        }
+        return true;
+    } 
+       
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -130,12 +147,12 @@ public class Software extends javax.swing.JFrame {
         tfQuilometragemVeiculo = new javax.swing.JTextField();
         jQuilometragem = new javax.swing.JLabel();
         buttonSalvarDados = new javax.swing.JButton();
-        spDiagnostico = new javax.swing.JScrollPane();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         spServicoeCustos = new javax.swing.JScrollPane();
-        taPreServicosCustos = new javax.swing.JTextArea();
         taPreDiagnostico = new javax.swing.JTextArea();
+        spServicoeCustos1 = new javax.swing.JScrollPane();
+        taPreServicosCustos1 = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         tfPeca = new javax.swing.JTextField();
@@ -315,12 +332,13 @@ public class Software extends javax.swing.JFrame {
 
         jLabel20.setText("Registro de Pré-Servicos, Custos e afins: ");
 
-        taPreServicosCustos.setColumns(20);
-        taPreServicosCustos.setRows(5);
-        spServicoeCustos.setViewportView(taPreServicosCustos);
-
         taPreDiagnostico.setColumns(20);
         taPreDiagnostico.setRows(5);
+        spServicoeCustos.setViewportView(taPreDiagnostico);
+
+        taPreServicosCustos1.setColumns(20);
+        taPreServicosCustos1.setRows(5);
+        spServicoeCustos1.setViewportView(taPreServicosCustos1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -330,53 +348,51 @@ public class Software extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(spServicoeCustos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jNomeCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tfNomeCliente, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfLogradouroCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfTelefoneCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(104, 104, 104)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfNumeroCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE))
+                                    .addComponent(jLogradouro, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jNomeCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfNomeCliente, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfLogradouroCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfTelefoneCliente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(104, 104, 104))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jAno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(81, 81, 81))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(30, 30, 30))
                             .addComponent(jVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jQuilometragem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfPlacaVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfPlacaVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                                     .addComponent(jNome, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfAnoVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(buttonSalvarDados)
-                                        .addComponent(tfQuilometragemVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(63, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(spDiagnostico))
-                        .addGap(105, 105, 105)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spServicoeCustos, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(jLabel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(taPreDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(tfAnoVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(buttonSalvarDados, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfQuilometragemVeiculo, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(spServicoeCustos1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfNomeVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(30, 30, 30))))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,25 +433,20 @@ public class Software extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfTelefoneCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfQuilometragemVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 197, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
+                        .addComponent(spServicoeCustos1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spServicoeCustos, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonSalvarDados))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel20))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spServicoeCustos, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
                 .addGap(18, 18, 18))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(taPreDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         jTabbedPane1.addTab("tab2", jPanel2);
@@ -452,6 +463,12 @@ public class Software extends javax.swing.JFrame {
 
         jLabel16.setText("Valor - Mão de Obra");
 
+        tfSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfSubTotalActionPerformed(evt);
+            }
+        });
+
         jLabel17.setText("Sub Total");
 
         btSalvarOrcamento.setText("Salvar");
@@ -465,24 +482,26 @@ public class Software extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btSalvarOrcamento, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tfSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(tfSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(btSalvarOrcamento)))
+                .addGap(15, 15, 15))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSalvarOrcamento)
-                .addGap(23, 23, 23)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addComponent(tfSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+                .addGap(47, 47, 47))
         );
 
         jLabel18.setText("Quantidade");
@@ -654,21 +673,21 @@ public class Software extends javax.swing.JFrame {
             return;}
         if(!validarCampos( tfLogradouroCliente, "Logradouro do Cliente" )){
             return;}
-        if(!validarCampos( tfNumeroCliente, "Número de endereço Cliente" )){
+        if(!validarNumeros( tfNumeroCliente, "Número do Cliente" )){
             return;}        
-        if(!validarCampos(tfTelefoneCliente, "Telefone do Cliente")){
+        if(!validarNumeros(tfTelefoneCliente, "Telefone do Cliente")){
             return;}
         if(!validarCampos( tfNomeVeiculo, "Nome do Veiculo" )){
             return;}
         if(!validarCampos( tfPlacaVeiculo, "Placa do Veiculo" )){
             return;}
-        if(!validarCampos( tfAnoVeiculo, "Ano do Veiculo" )){
+        if(!validarNumeros( tfAnoVeiculo, "Ano do Veiculo" )){
             return;}
-        if(!validarCampos( tfQuilometragemVeiculo, "Quilometragem do Veiculo" )){
+        if(!validarNumeros( tfQuilometragemVeiculo, "Quilometragem do Veiculo" )){
             return;}        
         if(!validarCampos(taPreDiagnostico, "Pré Diagnóstico")){
             return;}
-        if(!validarCampos( taPreServicosCustos, "Pré Orçamento" )){
+        if(!validarCampos(taPreDiagnostico, "Pré Orçamento" )){
             return;}
         
         JOptionPane.showMessageDialog(jPanel2, "Dados salvos com Sucesso!");
@@ -682,7 +701,18 @@ public class Software extends javax.swing.JFrame {
         veiculo.setAnoVeiculo(tfAnoVeiculo.getText());
         veiculo.setQuilometragemVeiculo(tfQuilometragemVeiculo.getText());
         servicos.setPreDiagnostico(taPreDiagnostico.getText());
-        servicos.setPreServicosCustos(taPreServicosCustos.getText());
+        servicos.setPreServicosCustos(taPreDiagnostico.getText());
+        
+        tfNomeCliente.setText("");
+        tfLogradouroCliente.setText("");
+        tfNumeroCliente.setText("");
+        tfTelefoneCliente.setText("");
+        tfNomeVeiculo.setText("");
+        tfPlacaVeiculo.setText("");
+        tfAnoVeiculo.setText("");
+        tfQuilometragemVeiculo.setText("");
+        taPreDiagnostico.setText("");
+        taPreDiagnostico.setText("");
         
     }//GEN-LAST:event_buttonSalvarDadosActionPerformed
 
@@ -733,11 +763,11 @@ public class Software extends javax.swing.JFrame {
       
         if(!validarCampos( tfPeca, "Peça" )){
             return;}
-        if(!validarCampos( tfValorPeca, "Valor das Peças" )){
+        if(!validarNumeros(tfValorPeca, "Valor das Peças" )){
             return;}
-        if(!validarCampos( tfQuantidadePecas, "Quantidade de Peças" )){
+        if(!validarNumeros( tfQuantidadePecas, "Quantidade de Peças" )){
             return;}        
-        if(!validarCampos(tfValorMaodeObra, "Mão de Obra")){
+        if(!validarNumeros(tfValorMaodeObra, "Mão de Obra")){
             return;}
         if(!validarCampos( tfServico, "Valor de Serviço" )){
             return;}
@@ -786,6 +816,10 @@ public class Software extends javax.swing.JFrame {
     private void tfPecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPecaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfPecaActionPerformed
+
+    private void tfSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSubTotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -860,12 +894,12 @@ public class Software extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jTelefone;
     private javax.swing.JLabel jVeiculo;
-    private javax.swing.JScrollPane spDiagnostico;
     private javax.swing.JScrollPane spRelatorioFinal;
     private javax.swing.JScrollPane spRelatorioFinal1;
     private javax.swing.JScrollPane spServicoeCustos;
+    private javax.swing.JScrollPane spServicoeCustos1;
     private javax.swing.JTextArea taPreDiagnostico;
-    private javax.swing.JTextArea taPreServicosCustos;
+    private javax.swing.JTextArea taPreServicosCustos1;
     private javax.swing.JTable tbInformacoesServico;
     private javax.swing.JTable tbRelatorioFinal;
     private javax.swing.JTextField tfAnoVeiculo;
