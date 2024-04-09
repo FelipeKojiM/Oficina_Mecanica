@@ -90,10 +90,8 @@ public class Software extends javax.swing.JFrame {
             return false;
         }
         
-        // Percorre cada caractere da string
         for (int i = 0; i < campo.length(); i++) {
             char c = campo.charAt(i);
-            // Verifica se o caractere não é um dígito numérico
             if (c < '0' || c > '9') {
                 
                 JOptionPane.showMessageDialog(this, ""+nomeTextString +" - somente Números! ");
@@ -101,7 +99,7 @@ public class Software extends javax.swing.JFrame {
                 return false;
             }
         }
-        return true;
+        return true;    
     } 
        
     
