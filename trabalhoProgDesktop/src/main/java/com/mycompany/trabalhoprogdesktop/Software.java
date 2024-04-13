@@ -162,6 +162,7 @@ public class Software extends javax.swing.JFrame {
         tfSubTotal = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         btSalvarOrcamento = new javax.swing.JButton();
+        btEditarOrcamento = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         tfQuantidadePecas = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -476,17 +477,26 @@ public class Software extends javax.swing.JFrame {
             }
         });
 
+        btEditarOrcamento.setText("Editar");
+        btEditarOrcamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarOrcamentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(401, Short.MAX_VALUE)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(139, 139, 139)
+                        .addGap(72, 72, 72)
+                        .addComponent(btEditarOrcamento)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btSalvarOrcamento)))
                 .addGap(15, 15, 15))
         );
@@ -494,7 +504,9 @@ public class Software extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btSalvarOrcamento)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSalvarOrcamento)
+                    .addComponent(btEditarOrcamento))
                 .addGap(17, 17, 17)
                 .addComponent(jLabel17)
                 .addGap(5, 5, 5)
@@ -819,6 +831,29 @@ public class Software extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfSubTotalActionPerformed
 
+    private void btEditarOrcamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarOrcamentoActionPerformed
+        
+        linhaSelecionada = -1;
+
+        linhaSelecionada = tbInformacoesServico.getSelectedRow();
+        if (linhaSelecionada >= 0) {
+            String item = (String) tbInformacoesServico.getValueAt(linhaSelecionada, 0);
+            String servico = (String) tbInformacoesServico.getValueAt(linhaSelecionada, 1);
+            String valorPeca = (String) tbInformacoesServico.getValueAt(linhaSelecionada, 1);
+            String quantidadePeca = (String) tbInformacoesServico.getValueAt(linhaSelecionada, 1);
+            String valorMaodeObra = (String) tbInformacoesServico.getValueAt(linhaSelecionada, 1);
+
+            tfPeca.setText(item);
+            tfServico.setText(servico);
+            tfValorPeca.setText(valorPeca);
+            tfQuantidadePecas.setText(quantidadePeca);
+            tfValorMaodeObra.setText(valorMaodeObra);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um Registro na tabela");
+        }
+    }//GEN-LAST:event_btEditarOrcamentoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -852,6 +887,7 @@ public class Software extends javax.swing.JFrame {
         
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btEditarOrcamento;
     private javax.swing.JButton btEntrar;
     private javax.swing.JButton btSalvarOrcamento;
     private javax.swing.JButton buttonSalvarDados;
